@@ -19,6 +19,8 @@ class AppServiceProvider extends ServiceProvider
      */
     public function boot(): void
     {
-        //
+        \Illuminate\Support\Facades\View::composer('components.header', function ($view) {
+            $view->with('menus', \App\Models\Menu::where('is_actived', 1)->whereNull('parent_id')->with('children')->get());
+        });
     }
 }
