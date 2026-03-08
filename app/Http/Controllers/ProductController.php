@@ -12,4 +12,9 @@ class ProductController extends Controller
         $products = Product::with('images')->first(); 
         return view('components.products', compact('products'));
     }
+
+    public function pulpProcess()
+    {
+        return view('pulp_process');
+    }
 }

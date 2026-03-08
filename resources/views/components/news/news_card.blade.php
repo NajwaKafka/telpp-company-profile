@@ -1,4 +1,4 @@
-<div class="bg-white rounded-2xl shadow-lg overflow-hidden border-b-4 border-green-700 max-w-xs">
+<a href="{{ $link ?? '#' }}" class="block bg-white rounded-2xl shadow-lg overflow-hidden border-b-4 border-green-700 max-w-xs hover:shadow-xl transition-all duration-300 transform hover:-translate-y-1">
 
     <!-- Image -->
 <div class="relative">
@@ -29,11 +29,10 @@
         </p>
 
         <div class="mt-6">
-            <a href="{{ $link ?? '#' }}"
-               class="inline-block bg-orange-500 text-white px-5 py-2 rounded-lg font-semibold shadow hover:bg-orange-600">
+            <span class="inline-block bg-orange-500 text-white px-5 py-2 rounded-lg font-semibold shadow group-hover:bg-orange-600">
                 Read More
-            </a>
+            </span>
         </div>
 
     </div>
-</div>
+</a>

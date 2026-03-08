@@ -1,5 +1,5 @@
         <!-- Product Highlights -->
-        <section class="py-24 bg-white">
+        <section id="products" class="py-24 bg-white">
 
         <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
 
@@ -81,35 +81,30 @@
 
         <!-- Slider Script -->
         <script>
+        (function() {
+            let index = 0;
+            const slides = document.getElementById("slides");
+            const nextBtn = document.getElementById("next");
+            const prevBtn = document.getElementById("prev");
 
-        let index = 0;
+            if (!slides || !nextBtn || !prevBtn) return;
 
-        const slides = document.getElementById("slides");
-        const totalSlides = slides.children.length;
+            const totalSlides = slides.children.length;
 
-        document.getElementById("next").addEventListener("click", () => {
+            nextBtn.addEventListener("click", () => {
+                index++;
+                if(index >= totalSlides){
+                    index = 0;
+                }
+                slides.style.transform = `translateX(-${index * 100}%)`;
+            });
 
-        index++;
-
-        if(index >= totalSlides){
-        index = 0;
-        }
-
-        slides.style.transform = `translateX(-${index * 100}%)`;
-
-        });
-
-
-        document.getElementById("prev").addEventListener("click", () => {
-
-        index--;
-
-        if(index < 0){
-        index = totalSlides - 1;
-        }
-
-        slides.style.transform = `translateX(-${index * 100}%)`;
-
-        });
-
+            prevBtn.addEventListener("click", () => {
+                index--;
+                if(index < 0){
+                    index = totalSlides - 1;
+                }
+                slides.style.transform = `translateX(-${index * 100}%)`;
+            });
+        })();
         </script>

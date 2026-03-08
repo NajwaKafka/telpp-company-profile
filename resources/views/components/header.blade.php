@@ -17,10 +17,16 @@
                 @foreach($menus as $menu)
                 @if($menu->children->count() > 0)
                 <div class="relative group">
-                    <button class="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest text-slate-600 hover:text-primary transition-all group-hover:text-primary group-hover:translate-y-[-1px]">
+                    @php
+                        $url = 'javascript:void(0)';
+                        if (strtolower($menu->name) == 'our company') $url = url('/#our-company');
+                        if (strtolower($menu->name) == 'product' || strtolower($menu->name) == 'products') $url = url('/#products');
+                        if (strtolower($menu->name) == 'news') $url = url('/#news-section');
+                    @endphp
+                    <a href="{{ $url }}" class="flex items-center gap-1.5 text-[11px] font-black uppercase tracking-widest text-slate-600 hover:text-primary transition-all group-hover:text-primary group-hover:translate-y-[-1px]">
                         {{ $menu->name }}
                         <span class="material-symbols-outlined text-base transition-transform group-hover:rotate-180">keyboard_arrow_down</span>
-                    </button>
+                    </a>
                     <!-- Enhanced Dropdown -->
                     <div class="absolute top-full left-1/2 -translate-x-1/2 pt-4 opacity-0 invisible scale-95 group-hover:opacity-100 group-hover:visible group-hover:scale-100 transition-all duration-300 z-50">
                         <div class="min-w-[240px] bg-white/95 backdrop-blur-xl rounded-3xl shadow-2xl border border-slate-100 p-4 relative">
@@ -28,11 +34,24 @@
                             @foreach($menu->allChildren->where('is_actived', 1) as $child)
                                 @include('components.header_menu_recursive', ['menu' => $child])
                             @endforeach
+                            @if(strtolower($menu->name) == 'product' || strtolower($menu->name) == 'products')
+                                <a href="{{ route('pulp-process.index') }}" class="flex items-center gap-3 px-4 py-3 rounded-xl text-sm font-bold text-primary hover:bg-primary/5 transition-all group/pulp mt-1 border-t border-slate-50 pt-4">
+                                    <div class="size-2 rounded-full bg-primary shadow-[0_0_10px_rgba(34,197,94,0.5)] animate-pulse"></div>
+                                    Interactive 3D Process
+                                    <span class="material-symbols-outlined text-xs ml-auto opacity-0 group-hover/pulp:opacity-100 transition-opacity">view_in_ar</span>
+                                </a>
+                            @endif
                         </div>
                     </div>
                 </div>
                 @else
-                <a class="text-[11px] font-black uppercase tracking-widest text-slate-600 hover:text-primary transition-all relative group group-hover:translate-y-[-1px]" href="{{ $menu->url }}">
+                @php
+                    $url = $menu->url;
+                    if (strtolower($menu->name) == 'our company') $url = url('/#our-company');
+                    if (strtolower($menu->name) == 'product' || strtolower($menu->name) == 'products') $url = url('/#products');
+                    if (strtolower($menu->name) == 'news') $url = url('/#news-section');
+                @endphp
+                <a class="text-[11px] font-black uppercase tracking-widest text-slate-600 hover:text-primary transition-all relative group group-hover:translate-y-[-1px]" href="{{ $url }}">
                     {{ $menu->name }}
                     <span class="absolute -bottom-2 left-0 w-0 h-0.5 bg-primary transition-all group-hover:w-full"></span>
                 </a>
@@ -43,12 +62,12 @@
             <!-- Corporate Actions -->
             <div class="flex items-center gap-4">
                 <div class="hidden xl:flex items-center gap-2 p-1.5 bg-slate-100 rounded-2xl border border-slate-200">
-                    <button class="h-10 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-700 hover:bg-white hover:text-primary hover:shadow-sm transition-all duration-300">
+                    <a href="https://eproc.telpp.com/_gst_home.php" target="_blank" class="h-10 px-6 rounded-xl text-[10px] font-black uppercase tracking-widest text-slate-700 hover:bg-white hover:text-primary hover:shadow-sm transition-all duration-300 flex items-center">
                         e-procurement
-                    </button>
-                    <button class="h-10 px-6 rounded-xl bg-primary text-white text-[10px] font-black uppercase tracking-widest shadow-xl shadow-primary/25 hover:bg-primary/90 hover:scale-105 transition-all duration-300">
+                    </a>
+                    <a href="https://erecruitment.telpp.com/er_tlpp/" target="_blank" class="h-10 px-6 rounded-xl bg-primary text-white text-[10px] font-black uppercase tracking-widest shadow-xl shadow-primary/25 hover:bg-primary/90 hover:scale-105 transition-all duration-300 flex items-center">
                         e-recruitment
-                    </button>
+                    </a>
                 </div>
                 <!-- Mobile Trigger -->
                 <button id="mobileMenuTrigger" class="lg:hidden text-slate-900 size-12 flex items-center justify-center bg-slate-100 rounded-2xl active:scale-95 transition-transform">
@@ -103,13 +122,13 @@
         <!-- Corporate Actions Mobile -->
         <div class="mt-auto pt-16 mobile-nav-item" style="transition-delay: {{ 150 + ($menus->count() * 70) }}ms">
             <div class="flex flex-col gap-4">
-                <button class="h-16 w-full rounded-2xl bg-primary text-white font-black uppercase tracking-widest shadow-2xl shadow-primary/30 flex items-center justify-center gap-3">
+                <a href="https://erecruitment.telpp.com/er_tlpp/" target="_blank" class="h-16 w-full rounded-2xl bg-primary text-white font-black uppercase tracking-widest shadow-2xl shadow-primary/30 flex items-center justify-center gap-3">
                     e-recruitment
                     <span class="material-symbols-outlined text-sm">rocket_launch</span>
-                </button>
-                <button class="h-16 w-full rounded-2xl bg-white/5 border border-white/10 text-slate-300 font-black uppercase tracking-widest backdrop-blur-md">
+                </a>
+                <a href="https://eproc.telpp.com/_gst_home.php" target="_blank" class="h-16 w-full rounded-2xl bg-white/5 border border-white/10 text-slate-300 font-black uppercase tracking-widest backdrop-blur-md flex items-center justify-center">
                     e-procurement
-                </button>
+                </a>
             </div>
         </div>
     </div>
@@ -117,7 +136,8 @@
 
 <script>
     function toggleMobileAccordion(btn) {
-        const content = btn.nextElementSibling;
+        const container = btn.closest('.flex-col');
+        const content = container.querySelector('.accordion-content');
         const icon = btn.querySelector('.icon-expand');
         
         content.classList.toggle('grid-rows-[1fr]');

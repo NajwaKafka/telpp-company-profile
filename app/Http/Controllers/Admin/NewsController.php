@@ -98,4 +98,36 @@ class NewsController extends Controller
         \App\Models\News::destroy($id);
         return redirect()->route('admin.news.index')->with('success', 'News deleted.');
     }
+
+    public function upload(Request $request)
+    {
+        if ($request->hasFile('upload')) {
+            try {
+                $originName = $request->file('upload')->getClientOriginalName();
+                $fileName = pathinfo($originName, PATHINFO_FILENAME);
+                $extension = $request->file('upload')->getClientOriginalExtension();
+                
+                // Validate extension
+                $allowedExtensions = ['jpg', 'jpeg', 'png', 'gif', 'webp'];
+                if (!in_array(strtolower($extension), $allowedExtensions)) {
+                    return response()->json(['error' => ['message' => 'Invalid file extension. Allowed: ' . implode(', ', $allowedExtensions)]]);
+                }
+
+                $fileName = \Illuminate\Support\Str::slug($fileName) . '_' . time() . '.' . $extension;
+
+                $destPath = public_path('media');
+                if (!file_exists($destPath)) {
+                    mkdir($destPath, 0755, true);
+                }
+
+                $request->file('upload')->move($destPath, $fileName);
+
+                $url = asset('media/' . $fileName);
+                return response()->json(['url' => $url]);
+            } catch (\Exception $e) {
+                return response()->json(['error' => ['message' => 'Upload failed: ' . $e->getMessage()]]);
+            }
+        }
+        return response()->json(['error' => ['message' => 'No file uploaded.']]);
+    }
 }

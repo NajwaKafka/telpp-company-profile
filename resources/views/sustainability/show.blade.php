@@ -34,22 +34,13 @@
     <div class="max-w-7xl mx-auto px-6 lg:px-12">
         <div class="grid grid-cols-1 lg:grid-cols-12 gap-20">
             <!-- Main Story -->
-            <div class="lg:col-span-8">
+            <div class="lg:col-span-12">
                 <div class="prose prose-2xl prose-slate max-w-none">
                     <p class="text-2xl text-slate-600 leading-[1.8] font-medium mb-12 first-letter:text-7xl first-letter:font-black first-letter:text-primary first-letter:mr-3 first-letter:float-left">
                         {{ $point->description }}
                     </p>
                     
-                    <div class="grid grid-cols-1 md:grid-cols-2 gap-8 my-16">
-                        <div class="bg-slate-50 p-8 rounded-[2rem] border border-slate-100">
-                            <h4 class="text-primary font-black uppercase tracking-widest text-xs mb-4">Core Objective</h4>
-                            <p class="text-slate-600 font-bold leading-relaxed">Harmonizing industrial growth with the natural ecosystem and local communities.</p>
-                        </div>
-                        <div class="bg-primary/5 p-8 rounded-[2rem] border border-primary/10">
-                            <h4 class="text-primary font-black uppercase tracking-widest text-xs mb-4">ESG Impact</h4>
-                            <p class="text-slate-900 font-bold leading-relaxed">Direct contribution to multiple UN Sustainable Development Goals.</p>
-                        </div>
-                    </div>
+
                 </div>
 
                 <!-- Multi-Image Gallery -->
@@ -71,42 +62,7 @@
                 @endif
             </div>
 
-            <!-- Sidebar Info -->
-            <div class="lg:col-span-4 space-y-12">
-                <div class="sticky top-32">
-                    <div class="bg-slate-950 rounded-[3rem] p-10 text-white shadow-2xl">
-                        <h4 class="text-xs font-black uppercase tracking-[0.3em] text-primary mb-8">Initiative Details</h4>
-                        
-                        <div class="space-y-8">
-                            <div>
-                                <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 block mb-2">Category</span>
-                                <p class="text-lg font-bold text-white uppercase tracking-tight">{{ $point->category }}</p>
-                            </div>
-                            <div>
-                                <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 block mb-2">Status</span>
-                                <div class="flex items-center gap-3">
-                                    <div class="size-2 bg-emerald-500 rounded-full animate-pulse"></div>
-                                    <p class="text-lg font-bold text-white uppercase tracking-tight">Active Operation</p>
-                                </div>
-                            </div>
-                            <div>
-                                <span class="text-[10px] font-black uppercase tracking-widest text-slate-500 block mb-2">Registry ID</span>
-                                <p class="text-lg font-bold text-slate-400 font-mono italic">#SUS-{{ str_pad($point->id, 4, '0', STR_PAD_LEFT) }}</p>
-                            </div>
-                        </div>
 
-                        <div class="mt-16 pt-10 border-t border-white/10">
-                            <p class="text-xs text-slate-400 font-medium leading-relaxed mb-8">
-                                Part of the PT TeLpp circular economy roadmap for 2030 and beyond.
-                            </p>
-                            <a href="{{ url('/#sustainability') }}" class="flex items-center justify-center gap-3 bg-white text-slate-950 py-4 rounded-2xl font-black text-sm hover:bg-primary hover:text-white transition-all">
-                                <span class="material-symbols-outlined text-lg">arrow_back</span>
-                                Back to Pillars
-                            </a>
-                        </div>
-                    </div>
-                </div>
-            </div>
         </div>
     </div>
 </section>

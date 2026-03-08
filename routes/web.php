@@ -39,6 +39,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
         Route::get('products/image/{image}', [\App\Http\Controllers\Admin\ProductController::class, 'deleteImage'])->name('products.delete-image');
         Route::resource('news', \App\Http\Controllers\Admin\NewsController::class);
+        Route::post('news/upload-image', [\App\Http\Controllers\Admin\NewsController::class, 'upload'])->name('news.upload-image');
         Route::resource('menus', \App\Http\Controllers\Admin\MenuController::class);
         Route::resource('sustainabilities', \App\Http\Controllers\Admin\SustainabilityController::class);
         Route::get('sustainabilities/image/{image}', [\App\Http\Controllers\Admin\SustainabilityController::class, 'deleteImage'])->name('sustainabilities.delete-image');
@@ -50,3 +51,4 @@ Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
 
 // halaman produk
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');
+Route::get('/pulp-process', [ProductController::class, 'pulpProcess'])->name('pulp-process.index');

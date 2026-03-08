@@ -23,4 +23,9 @@ class News extends Model
             'is_published' => 'boolean',
         ];
     }
+
+    public function images()
+    {
+        return $this->hasMany(NewsImage::class);
+    }
 }

@@ -1,5 +1,5 @@
 <!-- News Release -->
-<section class="py-24 bg-white">
+<section id="news-section" class="py-24 bg-white">
 
 <div class="max-w-6xl mx-auto mb-16">
 
@@ -35,7 +35,7 @@
 
     <!-- Button Left -->
     <button id="prevBtn"
-        class="absolute left-0 top-1/2 -translate-y-1/2 bg-green-700 text-white w-10 h-10 rounded-full hidden z-10">
+        class="absolute left-0 top-1/2 -translate-y-1/2 bg-green-700 text-white w-10 h-10 rounded-full z-10">
         ❮
     </button>
 
@@ -77,52 +77,48 @@
 
 
 <script>
+(function() {
+    const slider = document.getElementById("newsSlider");
+    const nextBtn = document.getElementById("nextBtn");
+    const prevBtn = document.getElementById("prevBtn");
 
-const slider = document.getElementById("newsSlider");
-const nextBtn = document.getElementById("nextBtn");
-const prevBtn = document.getElementById("prevBtn");
+    if (!slider || !nextBtn || !prevBtn) return;
 
-let index = 0;
-const slides = slider.children.length;
+    let index = 0;
+    const slides = slider.children.length;
 
-function updateSlider(){
+    function updateSlider(){
+        slider.style.transform = `translateX(-${index * 100}%)`;
 
-    slider.style.transform = `translateX(-${index * 100}%)`;
+        if(index === 0){
+            prevBtn.style.display = "none";
+        }else{
+            prevBtn.style.display = "block";
+        }
 
-    if(index === 0){
-        prevBtn.style.display = "none";
-    }else{
-        prevBtn.style.display = "block";
+        if(index === slides - 1){
+            nextBtn.style.display = "none";
+        }else{
+            nextBtn.style.display = "block";
+        }
     }
 
-    if(index === slides - 1){
-        nextBtn.style.display = "none";
-    }else{
-        nextBtn.style.display = "block";
-    }
+    nextBtn.addEventListener("click", function(){
+        if(index < slides - 1){
+            index++;
+            updateSlider();
+        }
+    });
 
-}
+    prevBtn.addEventListener("click", function(){
+        if(index > 0){
+            index--;
+            updateSlider();
+        }
+    });
 
-nextBtn.onclick = function(){
-
-    if(index < slides - 1){
-        index++;
-        updateSlider();
-    }
-
-}
-
-prevBtn.onclick = function(){
-
-    if(index > 0){
-        index--;
-        updateSlider();
-    }
-
-}
-
-updateSlider();
-
+    updateSlider();
+})();
 </script>
 
 </section>

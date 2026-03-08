@@ -1,16 +1,24 @@
 @if($menu->allChildren->where('is_actived', 1)->count() > 0)
     <div class="flex flex-col w-full">
-        <button onclick="toggleMobileAccordion(this)" class="w-full py-4 flex items-center justify-between transition-colors text-left group/btn">
-            <div class="flex items-center gap-3">
+        @php
+            $url = 'javascript:void(0)';
+            if (strtolower($menu->name) == 'our company') $url = url('/#our-company');
+            if (strtolower($menu->name) == 'product' || strtolower($menu->name) == 'products') $url = url('/#products');
+            if (strtolower($menu->name) == 'news') $url = url('/#news-section');
+        @endphp
+        <div class="w-full py-4 flex items-center justify-between transition-colors text-left group/btn">
+            <a href="{{ $url }}" class="flex items-center gap-3 flex-grow">
                 @if($level > 0)
                     <div class="size-1.5 rounded-full bg-gold-accent/60 shadow-[0_0_8px_rgba(234,179,8,0.3)]"></div>
                 @endif
                 <span class="{{ $level == 0 ? 'text-2xl font-black uppercase tracking-tighter text-white' : 'text-lg font-bold text-slate-50 tracking-wide' }}">
                     {{ $menu->name }}
                 </span>
-            </div>
-            <span class="material-symbols-outlined text-slate-400 text-xl transition-transform group-hover/btn:text-gold-accent icon-expand">add</span>
-        </button>
+            </a>
+            <button onclick="toggleMobileAccordion(this)" class="p-2 flex items-center justify-center">
+                <span class="material-symbols-outlined text-slate-400 text-xl transition-transform group-hover/btn:text-gold-accent icon-expand">add</span>
+            </button>
+        </div>
         <div class="grid grid-rows-[0fr] transition-all duration-500 ease-in-out border-l border-white/10 ml-{{ $level == 0 ? '2' : '4' }} mb-2 accordion-content">
             <div class="overflow-hidden">
                 <div class="pl-5 flex flex-col">
@@ -22,7 +30,13 @@
         </div>
     </div>
 @else
-    <a href="{{ $menu->url }}" class="block py-3.5 flex items-center gap-3 transition-colors group/link">
+    @php
+        $url = $menu->url;
+        if (strtolower($menu->name) == 'our company') $url = url('/#our-company');
+        if (strtolower($menu->name) == 'product' || strtolower($menu->name) == 'products') $url = url('/#products');
+        if (strtolower($menu->name) == 'news') $url = url('/#news-section');
+    @endphp
+    <a href="{{ $url }}" class="block py-3.5 flex items-center gap-3 transition-colors group/link">
         @if($level > 0)
             <div class="size-1 rounded-full bg-slate-500 group-hover/link:bg-gold-accent transition-colors"></div>
         @endif

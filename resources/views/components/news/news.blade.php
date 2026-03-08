@@ -32,38 +32,68 @@
 <div class="relative flex min-h-screen w-full flex-col overflow-x-hidden">
 
 <!-- News Grid -->
-<div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-<!-- Card 1 -->
-@foreach($data as $data)
-<article class="group bg-white dark:bg-slate-900 rounded-xl overflow-hidden shadow-sm hover:shadow-xl transition-all border border-slate-100 dark:border-slate-800">
-<div class="aspect-[16/10] overflow-hidden">
-<img class="w-full h-full object-cover group-hover:scale-105 transition-transform duration-500" data-alt="Modern sustainable factory building with greenery" src="https://lh3.googleusercontent.com/aida-public/AB6AXuB5Zdnlc-VmzGgmp_Fc-ENqsU3jikzRlZZpneHBzuZpYCDxqyCUc9zpWIQr_JVuqzY_UBzkS_A7ebRFlGtKwbNu4zYaiRgmbAtm4-6NGdXQPk62OIi5U0iwhQLJUS3wZwZ8l4LjAlWLDWOz_gK-AFbH9NYIafyw91hGwlGq52dNsawh9cYM4dqh4NOvxc6wepUxSZUVsub4a_lx3PTrtsHF35G4OP3qLmTJBWJ5x2ZRWqH35H-5a9lHcoImMsgCC2r-ZPdB5fOcwIlK"/>
+<div id="news-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
+    @include('components.news.news_cards_partial', ['data' => $data])
 </div>
-<div class="p-6">
-<span class="text-slate-400 text-xs font-bold uppercase tracking-widest mb-2 block">Corporate • Oct 24, 2023</span>
-<h3 class="text-xl font-bold leading-tight group-hover:text-primary transition-colors cursor-pointer">{{$data->title}}</h3>
-<p class="mt-3 text-slate-500 dark:text-slate-400 text-sm line-clamp-2">{{$data->summary}}</p>
+
+<!-- Load More Button -->
+@if($data->hasMorePages())
+<div id="load-more-container" class="mt-16 flex flex-col items-center gap-6">
+    <button id="load-more-btn" data-page="1" class="px-8 py-3 bg-primary text-white font-bold rounded-full hover:bg-opacity-90 transition-all shadow-lg hover:shadow-xl flex items-center gap-2">
+        <span>Load More</span>
+        <span class="material-symbols-outlined text-sm">expand_more</span>
+    </button>
+    <p id="loading-indicator" class="hidden text-slate-400 text-xs font-medium uppercase tracking-widest animate-pulse">Loading more articles...</p>
 </div>
-</article>
-@endforeach
-</div>
-<!-- Sleek Pagination -->
-<div class="mt-16 flex flex-col items-center gap-6">
-<div class="flex items-center gap-2">
-<button class="w-10 h-10 flex items-center justify-center rounded-full border border-slate-200 dark:border-slate-800 hover:bg-slate-100 transition-colors">
-<span class="material-symbols-outlined text-sm">chevron_left</span>
-</button>
-<button class="w-10 h-10 flex items-center justify-center rounded-full bg-secondary text-white font-bold">1</button>
-<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors font-medium">2</button>
-<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors font-medium">3</button>
-<span class="px-2 text-slate-400">...</span>
-<button class="w-10 h-10 flex items-center justify-center rounded-full hover:bg-slate-100 transition-colors font-medium">12</button>
-<button class="w-10 h-10 flex items-center justify-center rounded-full bg-primary text-white hover:opacity-90 transition-opacity">
-<span class="material-symbols-outlined text-sm">chevron_right</span>
-</button>
-</div>
-<p class="text-slate-400 text-xs font-medium uppercase tracking-widest">Showing 6 of 72 Articles</p>
-</div>
+@endif
+
+<script>
+document.addEventListener('DOMContentLoaded', function() {
+    const loadMoreBtn = document.getElementById('load-more-btn');
+    const newsContainer = document.getElementById('news-container');
+    const loadMoreContainer = document.getElementById('load-more-container');
+    const loadingIndicator = document.getElementById('loading-indicator');
+
+    if (loadMoreBtn) {
+        loadMoreBtn.addEventListener('click', function() {
+            let currentPage = parseInt(this.getAttribute('data-page'));
+            let nextPage = currentPage + 1;
+            
+            // UI States
+            loadMoreBtn.classList.add('hidden');
+            loadingIndicator.classList.remove('hidden');
+
+            fetch(`/news?page=${nextPage}`, {
+                headers: {
+                    'X-Requested-With': 'XMLHttpRequest'
+                }
+            })
+            .then(response => response.json())
+            .then(data => {
+                // Append new content
+                newsContainer.insertAdjacentHTML('beforeend', data.html);
+                
+                // Update page number
+                loadMoreBtn.setAttribute('data-page', nextPage);
+                
+                // UI States
+                loadingIndicator.classList.add('hidden');
+                
+                if (data.hasMore) {
+                    loadMoreBtn.classList.remove('hidden');
+                } else {
+                    loadMoreContainer.remove();
+                }
+            })
+            .catch(error => {
+                console.error('Error loading more news:', error);
+                loadMoreBtn.classList.remove('hidden');
+                loadingIndicator.classList.add('hidden');
+            });
+        });
+    }
+});
+</script>
 </div>
 </footer>
 </div>
