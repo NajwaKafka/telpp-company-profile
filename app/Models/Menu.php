@@ -15,7 +15,12 @@ class Menu extends Model
 
     public function children()
     {
-        return $this->hasMany(Menu::class, 'parent_id')->where('is_actived', 1);
+        return $this->hasMany(Menu::class, 'parent_id')->orderBy('id', 'asc');
+    }
+
+    public function allChildren()
+    {
+        return $this->children()->with('allChildren');
     }
 
     public function parent()

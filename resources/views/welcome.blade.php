@@ -3,11 +3,16 @@
 @section('title', 'PulpCo - Sustaining Nature, Crafting Paper')
 
 @section('content')
-    @include('components.hero')
-    @include('components.our_company')
-    @include('components.products')
-    @include('components.sustainability')
-    @include('components.news')
-    @include('components.biodiversity')
-    @include('components.portals')
+    <div class="reveal-hidden">
+        @include('components.hero')
+    </div>
+    <div class="reveal-hidden">
+        @include('components.our_company')
+    </div>
+    <div class="reveal-hidden">
+        @include('components.products')
+    </div>
+    <div class="reveal-hidden">
+        @include('components.news')
+    </div>
 @endsection

@@ -8,20 +8,12 @@
                 <span class="size-2 rounded-full bg-primary-light animate-pulse"></span>
                 FSC & PEFC Certified Production
             </div>
-            <h1 class="text-6xl md:text-8xl font-black text-white leading-[1.1] mb-8 tracking-tight">
-                Sustaining Nature, <br/><span class="text-primary-light">Crafting Paper</span>
+            <h1 class="text-6xl md:text-8xl font-black text-white leading-[0.95] mb-8 tracking-tighter drop-shadow-2xl">
+                Sustaining Nature, <br/><span class="text-primary-light">Crafting Paper.</span>
             </h1>
-            <p class="text-xl md:text-2xl text-white/80 mb-10 leading-relaxed max-w-2xl font-medium">
-                Leading the global transition towards sustainable paper production and responsible forest management for a greener, more resilient future.
+            <p class="text-xl md:text-2xl text-white/90 mb-12 leading-relaxed max-w-2xl font-medium tracking-tight">
+                Leading the global transition towards sustainable pulp production and responsible forest management in North Sumatra.
             </p>
-            <div class="flex flex-wrap gap-5">
-                <button class="rounded-2xl h-16 px-10 bg-primary text-white font-bold text-lg hover:bg-primary/90 hover:-translate-y-1 hover:shadow-xl hover:shadow-primary/40 transition-all">
-                    Explore Our Impact
-                </button>
-                <button class="rounded-2xl h-16 px-10 bg-white text-forest-dark font-bold text-lg hover:bg-slate-100 hover:-translate-y-1 hover:shadow-xl transition-all">
-                    View Products
-                </button>
-            </div>
         </div>
     </div>
 </section>

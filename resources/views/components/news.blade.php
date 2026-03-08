@@ -1,58 +1,58 @@
-<!-- News Release -->
-<section class="py-24 bg-white">
-    <div class="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8">
-        <div class="flex flex-col md:flex-row items-end justify-between mb-16 gap-8">
+<!-- News Release (Nature Harmony Edition) -->
+<section class="py-32 bg-emerald-deep relative overflow-hidden">
+    <!-- Atmospheric Depth Glows -->
+    <div class="absolute top-0 right-0 w-1/2 h-full bg-primary/10 blur-[150px] rounded-full pointer-events-none"></div>
+    <div class="absolute bottom-0 left-0 w-1/3 h-1/2 bg-gold-accent/5 blur-[120px] rounded-full pointer-events-none"></div>
+
+    <div class="max-w-7xl mx-auto px-6 lg:px-12 relative z-10">
+        <div class="flex flex-col md:flex-row items-end justify-between mb-24 gap-8">
             <div class="max-w-2xl text-left">
-                <h2 class="text-4xl md:text-5xl font-black text-forest-dark mb-6 tracking-tight">Latest Insights</h2>
-                <p class="text-lg text-slate-600 font-medium">Inside look at our latest reforestation projects, industrial innovations, and community impact.</p>
+                <div class="flex items-center gap-3 mb-6">
+                    <div class="w-12 h-px bg-gold-accent"></div>
+                    <span class="text-[10px] font-black uppercase tracking-[0.4em] text-gold-accent">Strategic Media</span>
+                </div>
+                <h2 class="text-5xl md:text-7xl font-black text-transparent bg-clip-text bg-gradient-to-r from-white via-white to-gold-accent mb-8 tracking-tighter leading-none">Latest Insights</h2>
+                <p class="text-xl text-slate-300 font-medium leading-relaxed">Inside look at our latest reforestation projects, industrial innovations, and community impact.</p>
             </div>
-            <a href="#" class="text-primary font-bold hover:underline mb-2 flex items-center gap-2">
-                All News Releases <span class="material-symbols-outlined">north_east</span>
+            <a href="#" class="h-14 px-8 border border-white/20 rounded-2xl text-white font-black text-xs uppercase tracking-widest hover:bg-gold-accent hover:text-emerald-deep hover:border-gold-accent transition-all flex items-center gap-3 group shadow-lg">
+                Global News Archive 
+                <span class="material-symbols-outlined text-sm group-hover:rotate-45 transition-transform">north_east</span>
             </a>
         </div>
-        <div class="grid grid-cols-1 md:grid-cols-3 gap-10">
-            <article class="group bg-background-soft rounded-[2rem] overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2 transition-all duration-500">
-                <div class="h-64 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1441974231531-c6227db76b6e?q=80&amp;w=2071&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Forest sunbeams">
+
+        <div class="grid grid-cols-1 md:grid-cols-3 gap-12">
+            @foreach($newsItems as $news)
+            <article class="group bg-white/5 backdrop-blur-md rounded-[2.5rem] overflow-hidden border border-white/10 hover:border-gold-accent/40 transition-all duration-700 reveal-hidden shadow-2xl">
+                <div class="h-72 overflow-hidden relative">
+                    @if($news->thumbnail_path)
+                        <img src="{{ asset('storage/' . $news->thumbnail_path) }}" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-1000" alt="{{ $news->title }}">
+                    @else
+                        <div class="w-full h-full bg-white/5 flex items-center justify-center text-white/5">
+                            <span class="material-symbols-outlined text-7xl">image</span>
+                        </div>
+                    @endif
+                    <div class="absolute inset-0 bg-gradient-to-t from-emerald-deep/95 via-transparent to-transparent"></div>
                 </div>
-                <div class="p-8">
-                    <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-4">Sustainability</span>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-4 leading-tight group-hover:text-primary transition-colors">New Reforestation Project in Amazon Basin</h3>
-                    <p class="text-slate-600 mb-6 line-clamp-2">Expanding our commitment with over 5 million new saplings planted this year across critical corridors.</p>
-                    <a class="inline-flex items-center gap-2 text-primary font-bold group/link" href="#">
-                        Read Detailed Story 
-                        <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
+                <div class="p-10">
+                    <div class="flex items-center justify-between mb-8">
+                        <span class="px-4 py-1.5 rounded-full bg-gold-accent/15 text-gold-accent text-[10px] font-black uppercase tracking-widest border border-gold-accent/30 shadow-sm">Corporate</span>
+                        <span class="text-[10px] font-bold text-slate-400 uppercase tracking-tighter">
+                            {{ $news->published_at ? $news->published_at->format('M d, Y') : '' }}
+                        </span>
+                    </div>
+                    <h3 class="text-2xl font-black text-white mb-6 leading-[1.3] tracking-tight group-hover:text-gold-accent transition-colors line-clamp-2 drop-shadow-sm">
+                        {{ $news->title }}
+                    </h3>
+                    <p class="text-slate-300 mb-10 line-clamp-2 leading-relaxed font-medium">{{ $news->summary }}</p>
+                    <a class="inline-flex items-center gap-3 text-gold-accent font-black text-[10px] uppercase tracking-widest group/link" href="#">
+                        Full Article 
+                        <span class="material-symbols-outlined text-lg group-hover/link:translate-x-2 transition-transform">arrow_right_alt</span>
                     </a>
                 </div>
             </article>
-            <article class="group bg-background-soft rounded-[2rem] overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2 transition-all duration-500">
-                <div class="h-64 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1581091226825-a6a2a5aee158?q=80&amp;w=2070&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Mill automated">
-                </div>
-                <div class="p-8">
-                    <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-4">Innovation</span>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-4 leading-tight group-hover:text-primary transition-colors">Mill Efficiency Reaches Record 98%</h3>
-                    <p class="text-slate-600 mb-6 line-clamp-2">Implementing AI-driven water management systems across all European facilities for optimized use.</p>
-                    <a class="inline-flex items-center gap-2 text-primary font-bold group/link" href="#">
-                        Read Detailed Story 
-                        <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
-                    </a>
-                </div>
-            </article>
-            <article class="group bg-background-soft rounded-[2rem] overflow-hidden border border-slate-100 hover:shadow-2xl hover:shadow-primary/5 hover:-translate-y-2 transition-all duration-500">
-                <div class="h-64 overflow-hidden">
-                    <img src="https://images.unsplash.com/photo-1521791136064-7986c2959213?q=80&amp;w=2069&amp;auto=format&amp;fit=crop" class="w-full h-full object-cover group-hover:scale-110 transition-transform duration-700" alt="Hands holding plant">
-                </div>
-                <div class="p-8">
-                    <span class="inline-block px-3 py-1 rounded-full bg-primary/10 text-primary text-xs font-bold uppercase tracking-widest mb-4">Community</span>
-                    <h3 class="text-2xl font-bold text-slate-900 mb-4 leading-tight group-hover:text-primary transition-colors">Scholarship Program for Local Schools</h3>
-                    <p class="text-slate-600 mb-6 line-clamp-2">Providing education grants and infrastructure support to 500 students in neighboring communities.</p>
-                    <a class="inline-flex items-center gap-2 text-primary font-bold group/link" href="#">
-                        Read Detailed Story 
-                        <span class="material-symbols-outlined text-sm group-hover/link:translate-x-1 transition-transform">arrow_forward</span>
-                    </a>
-                </div>
-            </article>
+            @endforeach
         </div>
     </div>
+    <!-- Sharp Elegant separator -->
+    <div class="absolute bottom-0 left-0 right-0 h-px bg-white/5"></div>
 </section>

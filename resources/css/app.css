@@ -9,21 +9,56 @@
     --font-sans: 'Instrument Sans', ui-sans-serif, system-ui, sans-serif, 'Apple Color Emoji', 'Segoe UI Emoji', 'Segoe UI Symbol', 'Noto Color Emoji';
     --font-display: 'Inter', sans-serif;
 
-    --color-primary: #15803d;
-    /* Forest Green 700 */
-    --color-primary-light: #22c55e;
-    /* Green 500 */
+    --color-primary: #047857;
+    /* Emerald 700 - Sharper Forest */
+    --color-primary-light: #10b981;
+    /* Emerald 500 - Vibrant Accent */
     --color-background-light: #ffffff;
     --color-background-soft: #f8fafc;
     /* Slate 50 */
-    --color-background-dark: #052e16;
-    /* green-950 */
+    --color-background-dark: #022c22;
+    /* Midnight Emerald */
     --color-earth-brown: #451a03;
     --color-forest-dark: #064e3b;
-    --color-leaf-green: #166534;
+    --color-leaf-green: #15803d;
+    --color-stone-light: #fdfbf7;
+    /* Premium sand/paper tone */
+    --color-emerald-deep: #022c22;
+    /* Deep Forest Depth */
+    --color-gold-accent: #f59e0b;
+    /* Richer, high-visibility Gold */
+    --color-slate-600: #475569;
+    /* High-contrast sub-text */
 
     --radius-DEFAULT: 0.75rem;
     --radius-lg: 1.25rem;
     --radius-xl: 2rem;
     --radius-full: 9999px;
+}
+
+/* Global Scroll-Reveal Animations */
+.reveal-hidden {
+    opacity: 0;
+    transform: translateY(40px);
+    transition: all 1.2s cubic-bezier(0.16, 1, 0.3, 1);
+}
+
+.reveal-visible {
+    opacity: 1;
+    transform: translateY(0);
+}
+
+/* Premium Glow Utilities */
+.glass-glow {
+    position: relative;
+}
+
+.glass-glow::after {
+    content: '';
+    position: absolute;
+    inset: -1px;
+    background: linear-gradient(to right, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0.05), rgba(255, 255, 255, 0.1));
+    border-radius: inherit;
+    z-index: -1;
+    pointer-events: none;
 }
