@@ -2,7 +2,7 @@
 
     <!-- Image -->
 <div class="relative">
-    <img src="{{ $image ?? 'images/news1.png' }}" class="w-full h-55 object-contain">
+    <img src="{{ $image && !str_contains($image, 'images/') ? $image : asset('images/news1.png') }}" class="w-full h-64 object-cover">
 
     <!-- Date Circle -->
     <div class="absolute top-4 right-4 w-14 h-14 bg-green-700 text-white rounded-full flex flex-col items-center justify-center border-4 border-white shadow">

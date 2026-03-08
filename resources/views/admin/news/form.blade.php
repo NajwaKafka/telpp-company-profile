@@ -54,12 +54,14 @@
 
             <div class="p-8 bg-white rounded-[2.5rem] border border-slate-100 shadow-sm space-y-6">
                 <label class="text-xs font-black uppercase tracking-widest text-slate-400">Thumbnail Image</label>
-                <div id="thumbnail-preview" class="size-full aspect-video rounded-2xl bg-slate-50 border-2 border-dashed border-slate-100 flex items-center justify-center text-slate-300 relative overflow-hidden group">
-                    @if(isset($news) && $news->thumbnail_path)
-                        <img src="{{ asset('storage/' . $news->thumbnail_path) }}" class="w-full h-full object-cover">
-                    @else
-                        <span class="material-symbols-outlined text-4xl">add_photo_alternate</span>
-                    @endif
+                <div class="size-full aspect-video rounded-2xl bg-slate-50 border-2 border-dashed border-slate-100 flex items-center justify-center text-slate-300 relative overflow-hidden group">
+                    <div id="thumbnail-preview" class="absolute inset-0 flex items-center justify-center pointer-events-none">
+                        @if(isset($news) && $news->thumbnail_path)
+                            <img src="{{ asset('storage/' . $news->thumbnail_path) }}" class="w-full h-full object-cover">
+                        @else
+                            <span class="material-symbols-outlined text-4xl">add_photo_alternate</span>
+                        @endif
+                    </div>
                     <input type="file" name="thumbnail" onchange="previewThumbnail(this)" class="absolute inset-0 opacity-0 cursor-pointer">
                 </div>
             </div>
@@ -81,7 +83,6 @@
             reader.onload = function(e) {
                 container.innerHTML = `
                     <img src="${e.target.result}" class="w-full h-full object-cover">
-                    <input type="file" name="thumbnail" onchange="previewThumbnail(this)" class="absolute inset-0 opacity-0 cursor-pointer">
                 `;
             };
             reader.readAsDataURL(input.files[0]);

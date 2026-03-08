@@ -49,9 +49,12 @@
 
                 @foreach($slide as $data)
                     @include('components.news.news_card', [
-                        'image' => asset('images/'.$data->cover),
+                        'image' => asset('storage/' . $data->thumbnail_path),
                         'title' => $data->title,
-                        'description' => $data->body
+                        'description' => $data->summary,
+                        'date' => $data->published_at ? $data->published_at->format('d') : $data->created_at->format('d'),
+                        'month' => $data->published_at ? $data->published_at->format('M') : $data->created_at->format('M'),
+                        'link' => route('news.show', $data->slug)
                     ])
                 @endforeach
 

@@ -2,6 +2,7 @@
 
 use Illuminate\Support\Facades\Route;
 use App\Http\Controllers\NewsController;
+use App\Http\Controllers\ProductController;
 
 Route::get('/', function () {
     $profile = \App\Models\CompanyProfile::latest()->first();
@@ -36,6 +37,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::resource('company', \App\Http\Controllers\Admin\CompanyProfileController::class);
         Route::resource('creeds', \App\Http\Controllers\Admin\CreedController::class);
         Route::resource('products', \App\Http\Controllers\Admin\ProductController::class);
+        Route::get('products/image/{image}', [\App\Http\Controllers\Admin\ProductController::class, 'deleteImage'])->name('products.delete-image');
         Route::resource('news', \App\Http\Controllers\Admin\NewsController::class);
         Route::resource('menus', \App\Http\Controllers\Admin\MenuController::class);
         Route::resource('sustainabilities', \App\Http\Controllers\Admin\SustainabilityController::class);
@@ -44,5 +46,7 @@ Route::prefix('admin')->name('admin.')->group(function () {
 });
 
 Route::get('/news', [NewsController::class, 'index']);
+Route::get('/news/{slug}', [NewsController::class, 'show'])->name('news.show');
+
 // halaman produk
 Route::get('/products', [ProductController::class, 'index'])->name('products.index');

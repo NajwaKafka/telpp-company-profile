@@ -28,11 +28,11 @@ class ProductController extends Controller
     {
         $data = $request->validate([
             'name' => 'required',
-            'sku' => 'nullable',
             'description' => 'required',
             'slug' => 'nullable',
             'is_featured' => 'boolean',
             'image' => 'nullable|image',
+            'images.*' => 'nullable|image',
         ]);
 
         $data['slug'] = $data['slug'] ?? \Illuminate\Support\Str::slug($data['name']);
@@ -42,7 +42,15 @@ class ProductController extends Controller
             $data['image_path'] = $request->file('image')->store('products', 'public');
         }
 
-        \App\Models\Product::create($data);
+        $product = \App\Models\Product::create($data);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $path = $file->store('products/gallery', 'public');
+                $product->images()->create(['image' => $path]);
+            }
+        }
+
         return redirect()->route('admin.products.index')->with('success', 'Product added.');
     }
 
@@ -59,7 +67,7 @@ class ProductController extends Controller
      */
     public function edit(string $id)
     {
-        $product = \App\Models\Product::findOrFail($id);
+        $product = \App\Models\Product::with('images')->findOrFail($id);
         return view('admin.products.form', compact('product'));
     }
 
@@ -72,6 +80,7 @@ class ProductController extends Controller
             'slug' => 'nullable',
             'is_featured' => 'nullable',
             'image' => 'nullable|image',
+            'images.*' => 'nullable|image',
         ]);
 
         $data['slug'] = $data['slug'] ?? \Illuminate\Support\Str::slug($data['name']);
@@ -82,6 +91,14 @@ class ProductController extends Controller
         }
 
         $product->update($data);
+
+        if ($request->hasFile('images')) {
+            foreach ($request->file('images') as $file) {
+                $path = $file->store('products/gallery', 'public');
+                $product->images()->create(['image' => $path]);
+            }
+        }
+
         return redirect()->route('admin.products.index')->with('success', 'Product updated.');
     }
 
@@ -92,5 +109,12 @@ class ProductController extends Controller
     {
         \App\Models\Product::destroy($id);
         return redirect()->route('admin.products.index')->with('success', 'Product removed.');
+    }
+
+    public function deleteImage(\App\Models\ProductImage $image)
+    {
+        \Illuminate\Support\Facades\Storage::disk('public')->delete($image->image);
+        $image->delete();
+        return back()->with('success', 'Image deleted.');
     }
 }

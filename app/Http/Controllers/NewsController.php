@@ -13,9 +13,9 @@ class NewsController extends Controller
         return view('news', compact('data'));
     }
 
-    public function show($id)
+    public function show($slug)
     {
-        $news = News::findOrFail($id);
+        $news = News::with('images')->where('slug', $slug)->firstOrFail();
         return view('news.show', compact('news'));
     }
 }
