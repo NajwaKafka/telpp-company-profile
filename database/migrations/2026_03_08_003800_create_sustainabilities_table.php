@@ -12,6 +12,7 @@ return new class extends Migration
             $table->id();
             $table->string('category', 50)->index(); // forest, community, environment, etc.
             $table->string('title', 200);
+             $table->string('slug')->unique();
             $table->text('description');
             $table->string('cover_image')->nullable();
             $table->string('icon', 50)->nullable();
