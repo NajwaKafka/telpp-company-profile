@@ -1,12 +1,13 @@
 <?php
 
 use Illuminate\Support\Facades\Route;
+use App\Http\Controllers\NewsController;
 
 Route::get('/', function () {
     $profile = \App\Models\CompanyProfile::latest()->first();
     $creeds = \App\Models\Creed::where('is_active', true)->orderBy('order')->get();
     $products = \App\Models\Product::where('is_featured', true)->latest()->take(4)->get();
-    $newsItems = \App\Models\News::where('is_published', true)->latest()->take(3)->get();
+    $newsItems = \App\Models\News::where('is_published', true)->latest()->take(6)->get();
     $menus = \App\Models\Menu::with('allChildren')
         ->whereNull('parent_id')
         ->where('is_actived', 1)
@@ -41,3 +42,5 @@ Route::prefix('admin')->name('admin.')->group(function () {
         Route::get('sustainabilities/image/{image}', [\App\Http\Controllers\Admin\SustainabilityController::class, 'deleteImage'])->name('sustainabilities.delete-image');
     });
 });
+
+Route::get('/news', [NewsController::class, 'index']);
